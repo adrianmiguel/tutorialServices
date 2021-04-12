@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "e64d300b-b494-4e56-84e2-2b0362b1abcb",
+		"name": "TutorialJenkins",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "tutorialEndpoint",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.pragma.com.co/hs-search-results?term=Automatizacion",
+					"protocol": "https",
+					"host": [
+						"www",
+						"pragma",
+						"com",
+						"co"
+					],
+					"path": [
+						"hs-search-results"
+					],
+					"query": [
+						{
+							"key": "term",
+							"value": "Automatizacion"
+						},
+						{
+							"key": "term",
+							"value": "Tester",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

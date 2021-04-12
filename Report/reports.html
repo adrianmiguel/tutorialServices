@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow-y: scroll;">
+<head>
+  <meta charset="UTF-8">
+  <title>Reports TEST</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
+
+<style>
+.theme-dark {
+    --background-color: #222;
+    --bg-card-deck: #444444;
+    --text-color: #ccd2d8;
+    --tab-border: solid 1px #444;
+    --success: #3c9372;
+    --failure: #c24a3f;
+    --warning: #d28c23;
+    --info: #4083b6;
+    --badge-outline: #3c9372;
+    --badge-bg: #cdd3db;
+    --badge-text: #ccd2d9;
+    --failure-row: #c24a3f;
+    --warning-row: #d28c23;
+    --card-bg: #444;
+    --card-footer: #4f5758;
+    --form-input: #ececb5;
+    --hov-text: #d2dae5;
+    --h4-text: #ccd1d9;
+}
+
+.theme-light {
+    --tab-border: solid 1px #fff;
+    --text-color: #000000;
+    --success: #42a745;
+    --failure: #dc3544;
+    --warning: #f4c10b;
+    --info: #49a1b8;
+    --badge-outline: #040411;
+    --badge-bg: #f8f9fa;
+    --badge-text: #fff;
+    --failure-row: #f5c6cb;
+    --warning-row: #ffeeba;
+    --card-bg: #f7f7f7;
+    --hov-text: #fff;
+    --h4-text: #ffffff;
+}
+
+body {
+  padding-top:30px;
+  background-color: var(--background-color)!important;
+  color: var(--text-color);
+}
+
+#execution-data {
+  padding: 10px;
+  border: var(--tab-border);
+  border-top: none;
+}
+
+.nav-tabs {
+  padding-top: 10px;
+  height: 105px;
+  overflow-y: auto;
+}
+
+body.theme-dark .card-header {
+    background-color: #444;
+}
+
+body.theme-light .card-header {
+    background-color: #f7f7f7;
+}
+
+.card-footer {
+    padding: .75rem 1.25rem;
+    background-color: var(--card-footer);
+}
+
+.card-deck {
+    background-color: var(--bg-card-deck)!important;
+}
+.form-control {
+    background: var(--form-input);
+}
+
+.custom-tab {
+  padding: 10px 15px;
+  margin-right: 0px;
+  height: 47px;
+  width: 69px;
+  text-align: center;
+  border: var(--tab-border);
+  border-bottom: none;
+  cursor:pointer;
+}
+
+body.theme-dark .text-white {
+    color: #ccd2d9!important;
+}
+h4 {
+    color: var(--h4-text);
+}
+
+body.theme-dark h1 {
+    color: #ccd2da;
+}
+
+body.theme-dark .bg-light>td {
+    background: #4f5858!important;
+}
+
+body.theme-dark .hljs {
+    background: #0a0a0ab0!important;
+    color: #8d8787!important;
+}
+
+.bg-info {
+    background-color: var(--info)!important;
+}
+.bg-success {
+    background-color: var(--success)!important;
+}
+
+.alert-success {
+    background-color: var(--success)!important;
+}
+
+.alert-warning {
+    background-color: var(--warning)!important;
+}
+
+.alert-info {
+    background-color: var(--info)!important;
+}
+
+.bg-warning {
+    background-color: var(--warning)!important;
+}
+
+.badge-warning {
+    color: var(--badge-text)!important;
+    background-color: var(--warning)!important;
+}
+
+.table-warning>td {
+    background-color: var(--warning-row);
+}
+
+.alert-danger {
+    background-color: var(--failure)!important;
+}
+
+body.theme-dark .alert-dark {
+    background-color: #636467!important;
+}
+
+body.theme-dark .text-dark {
+    color: #d1dae4!important;
+}
+
+body.theme-dark .badge-light {
+    color: #212529;
+    background-color: #cdd3db;
+}
+
+body.theme-light .badge-light {
+    color: #212529;
+    background-color: #f8f9fa;
+}
+body.theme-light .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+body.theme-dark .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+.table-danger>td {
+    background-color: var(--failure-row);
+}
+
+body.theme-dark .table .thead-light th {
+    background-color: #4f5858!important;
+    border-color: #dee2e6!important;
+    color: #ccd2d8!important;
+}
+
+.itPassed {
+  background: var(--success);
+  color: white;
+}
+.itFailed {
+  background: var(--failure);
+  color: white;
+}
+
+.resultsInfoPass {
+  color: var(--success);
+  padding-top: 4px;
+}
+
+.resultsInfoFail {
+  color: var(--failure);
+  padding-top: 4px;
+}
+
+.badge-outline-success {
+  color: var(--success);
+  border: 1px solid var(--success);
+  background-color: transparent;
+}
+
+.badge-outline {
+  color: var(--badge-outline);
+  border: 1px solid var(--badge-outline);
+  background-color: transparent;
+}
+
+.btn-outline-success {
+    color: var(--success)!important;
+    border-color: var(--success)!important;
+}
+
+.backToTop:hover {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: var(--hov-text)!important;
+}
+
+.btn-outline-success:hover {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: var(--hov-text)!important;
+}
+
+.btn-outline-secondary {
+  background-color: var(--success)!important;
+  color: var(--hov-text)!important;
+}
+
+body.theme-dark .env-heading {
+    color: #ccd2d9!important;
+}
+
+body, html {
+  height:100%;
+}
+
+.card {
+  overflow:hidden;
+}
+
+body.theme-dark .card-body {
+    background-color: #444;
+}
+
+body.theme-light .card-body {
+    background-color: #f7f7f7;
+}
+
+body.theme-dark .card-body .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+body.theme-light .card-body .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+.card-body .rotate {
+  z-index: 8;
+  float: right;
+  height: 100%;
+}
+
+.card-body .rotate i {
+  color: #14141426;
+  position: absolute;
+  left: 0;
+  left: auto;
+  right: -10px;
+  bottom: 0;
+  display: block;
+  -webkit-transform: rotate(-44deg);
+  -moz-transform: rotate(-44deg);
+  -o-transform: rotate(-44deg);
+  -ms-transform: rotate(-44deg);
+  transform: rotate(-44deg);
+}
+
+.dyn-height {
+  max-height:350px;
+  overflow-y:auto;
+}
+
+.nav-pills .nav-link.active {
+  background-color: transparent!important;
+}
+
+.backToTop {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  z-index: 99;
+  font-size: 15px;
+  outline: none;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.card-header .fa {
+  transition: .3s transform ease-in-out;
+}
+.card-header .collapsed .fa {
+  transform: rotate(90deg);
+}
+
+.single-line-tabs {
+  padding-top: 10px;
+  height: 60px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 20px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 0px;
+  bottom: 4px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  box-shadow: 0 0px 15px #2020203d;
+  background: white;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+input:checked + .slider {
+  background-color: #4083b6;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #4083b6;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(24px);
+  -ms-transform: translateX(24px);
+  transform: translateX(24px);
+  background: white;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+table.dataTable td, table.dataTable tr {
+    vertical-align: middle;
+} 
+
+body.theme-dark code {
+    color: #ccd2d8!important;
+} 
+
+body.theme-light code {
+    color: #000000!important;
+} 
+
+</style>
+</head>
+<body class="">
+  <div class="container">
+        <div class="container">
+            <label>Light</label>
+            <label id="switch" class="switch">
+                <input type="checkbox" onchange="toggleTheme()" id="slider">
+                <span class="slider round"></span>
+            </label>
+            <label>Dark</label>
+        </div>
+        <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
+            <li class="nav-item bg-info active" data-toggle="tooltip" title="Click to view the Summary">
+                <a class="nav-link text-white" id="pills-summary-tab" data-toggle="pill" href="#pills-summary" role="tab" aria-controls="pills-summary" aria-selected="true">Summary</a>
+            </li>
+            <li class="nav-item bg-success" data-toggle="tooltip" title="Click to view the Requests">
+                <a class="nav-link text-white" id="pills-requests-tab" data-toggle="pill" href="#pills-requests" role="tab" aria-controls="pills-requests" aria-selected="false">Total Requests <span class="badge badge-light">1</span></a>
+            </li>
+            <li class="nav-item bg-danger" data-toggle="tooltip" title="Click to view the Failed Tests">
+                <a class="nav-link text-white" id="pills-failed-tab" data-toggle="pill" href="#pills-failed" role="tab" aria-controls="pills-failed" aria-selected="false">Failed Tests <span class="badge badge-light">0</span></a>
+            </li>
+            <li class="nav-item bg-warning" data-toggle="tooltip" title="Click to view the Skipped Tests">
+                <a class="nav-link text-white" id="pills-skipped-tab" data-toggle="pill" href="#pills-skipped" role="tab" aria-controls="pills-skipped" aria-selected="false">Skipped Tests <span class="badge badge-light">0</span></a>
+            </li>
+            </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-summary" role="tabcard" aria-labelledby="pills-summary-tab">
+<div class="row">
+  <div class="col-md-9 col-lg-12 main">
+   <h1 class="display-2 text-center">Report of web services TEST</h1>
+   <h5 class="text-center">Sunday, 11 April 2021 20:41:32</h5>
+   <div class="row">
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-success">
+      <div class="card-body bg-success">
+       <div class="rotate">
+        <i class="fa fa-retweet fa-5x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Iterations</h6>
+       <h1 class="display-1">1</h1>
+      </div>
+     </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-danger">
+      <div class="card-body bg-success">
+       <div class="rotate">
+        <i class="fa fa-list fa-4x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Assertions</h6>
+       <h1 class="display-1">2</h1>
+      </div>
+     </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-info">
+      <div class="card-body bg-success">
+       <div class="rotate">
+        <i class="fa fa-plus-circle fa-5x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Failed Tests</h6>
+       <h1 class="display-1">0</h1>
+      </div>
+     </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-warning">
+      <div class="card-body bg-success">
+       <div class="rotate">
+        <i class="fa fa-share fa-5x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Skipped Tests</h6>
+       <h1 class="display-1">0</h1>
+      </div>
+     </div>
+    </div>
+   </div>
+   <hr>
+    <div class="row">
+    <div class="col">
+        <div class="row">
+        <div class="col-sm-12 mb-3">
+            <div class="card border-info">
+                <div class="card-body">
+                <h5 class="card-title text-uppercase text-white text-center bg-info">File Information</h5>
+                <span><i class="fas fa-file-code"></i></span><strong> Collection:</strong> TutorialJenkins<br>
+                
+                
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-sm-12 mb-3">
+            <div class="card border-info">
+                <div class="card-body">
+                <h5 class="card-title text-uppercase text-white text-center bg-info">Timings and Data</h5>
+                <span><i class="fas fa-stopwatch"></i></span><strong> Total run duration:</strong> 591ms<br>
+                <span><i class="fas fa-database"></i></span><strong> Total data received:</strong> 37.7KB<br>
+                <span><i class="fas fa-stopwatch"></i></span><strong> Average response time:</strong> 355ms<br>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-sm-12 mb-3">
+            <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-inverse">
+                    <tr class="text-center">
+                        <th class="text-uppercase">Summary Item</th>
+                        <th class="text-uppercase">Total</th>
+                        <th class="text-uppercase">Failed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Requests</td>
+                        <td class="text-center">1</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td>Prerequest Scripts</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td>Test Scripts</td>
+                        <td class="text-center">1</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr class="">
+                        <td>Assertions</td>
+                        <td class="text-center">2</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr class="">
+                        <td>Skipped Tests</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">-</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        </div>
+    <hr>
+   </div>
+   </div>
+  </div>
+ </div>
+        </div>
+            <div class="tab-pane fade" id="pills-failed" role="tabcard" aria-labelledby="pills-failed-tab">
+                <button id="topOfFailuresScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+                
+                <div class="alert alert-success text-uppercase text-center">
+                     <br><br><h1 class="text-center">There are no failed tests <span><i class="far fa-thumbs-up"></i></span></h1><br><br>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-skipped" role="tabcard" aria-labelledby="pills-skipped-tab">
+                <button id="topOfSkippedScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+
+                <div class="alert alert-success text-uppercase text-center">
+                    <br><br><h1 class="text-center">There are no skipped tests <span><i class="far fa-thumbs-up"></i></span></h1><br><br>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-requests" role="tabcard" aria-labelledby="pills-requests-tab">
+
+            <button id="topOfRequestsScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+            
+            <div class="btn-group float-right" role="group" aria-label="Button Group">
+                <button id="openAll" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 140px;">Expand Folders</button>
+                <button id="openAllRequests" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 140px;">Expand Requests</button>
+            </div>
+
+    <div class="text-uppercase" id="execution-menu">
+        <h5>1 Iteration available to view</h5>
+        
+        <nav class="table-responsive">
+        <ul class="nav single-line-tabs" id="iterationList">
+        </ul>
+        </nav>
+    </div>
+    <h6 class="text-uppercase text-muted" id="iterationSelected" style="padding-top: 10px;"></h6>
+	<div class="tab-content" id="execution-data">
+            <div id="folder-eac59a5f-3627-4117-b27a-b7c1a018ac13" class="card-deck iteration-0">
+            <div class="row iteration-0">
+                <div class="col-sm-12 mb-3 iteration-0">
+                <div class="card iteration-0">
+                    <div class="card-header  bg-success iteration-0">
+                        <a data-toggle="collapse" href="#" data-target="#collapse-eac59a5f-3627-4117-b27a-b7c1a018ac13" aria-expanded="false" aria-controls="collapse" id="requests-eac59a5f-3627-4117-b27a-b7c1a018ac13" class="collapsed text-white z-block">
+                    Iteration: 1 - tutorialEndpoint <i class="float-lg-right fa fa-chevron-down" style="padding-top: 5px;"></i>
+                </a>
+                    </div>
+                    <div id="collapse-eac59a5f-3627-4117-b27a-b7c1a018ac13" class="collapse" aria-labelledby="requests-eac59a5f-3627-4117-b27a-b7c1a018ac13">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Request Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request Method:</strong> <span class="badge-outline-success badge badge-success"> GET</span><br>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request URL:</strong> <a href="https://www.pragma.com.co/hs-search-results?term&#x3D;Automatizacion" target="_blank">https://www.pragma.com.co/hs-search-results?term&#x3D;Automatizacion</a><br>
+                                    </div>
+                                </div>
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Response Code:</strong> <span class="float-right badge-outline badge badge-success"> 200 - OK</span><br>
+                                    <span><i class="fas fa-stopwatch"></i></span><strong> Mean time per request:</strong> <span class="float-right badge-outline badge badge-success"> 355ms</span><br>
+                                    <span><i class="fas fa-database"></i></span><strong> Mean size per request:</strong> <span class="float-right badge-outline badge badge-success"> 37.7KB</span><br>
+                                    <hr>
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Test Pass Percentage</h5>
+                                    <div>
+                                        <div class="progress" style="height: 40px;">
+                                            <div class="progress-bar  bg-success" style="width: 100%" role="progressbar">
+                                            <h5 style="padding-top:5px;"><strong>100 %</strong></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-uppercase text-white text-center bg-info">Request Headers</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                            <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-nowrap">User-Agent</td>
+                                                        <td>PostmanRuntime/7.26.10</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept</td>
+                                                        <td>*/*</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Cache-Control</td>
+                                                        <td>no-cache</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Postman-Token</td>
+                                                        <td>261e8516-7eba-4c2a-86c2-5714b78d15ed</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Host</td>
+                                                        <td>www.pragma.com.co</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept-Encoding</td>
+                                                        <td>gzip, deflate, br</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Connection</td>
+                                                        <td>keep-alive</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Headers</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                        <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-nowrap">Date</td>
+                                                    <td>Mon, 12 Apr 2021 01:41:32 GMT</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Content-Type</td>
+                                                    <td>text/html; charset&#x3D;UTF-8</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Transfer-Encoding</td>
+                                                    <td>chunked</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Connection</td>
+                                                    <td>keep-alive</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Set-Cookie</td>
+                                                    <td>__cfduid&#x3D;d18ceb611e52b02d3bf25f0dcbec114311618191692; expires&#x3D;Wed, 12-May-21 01:41:32 GMT; path&#x3D;/; domain&#x3D;.www.pragma.com.co; HttpOnly; SameSite&#x3D;Lax</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Set-Cookie</td>
+                                                    <td>__cfruid&#x3D;971b970221c3ed5e81912de14a419610343dca58-1618191692; path&#x3D;/; domain&#x3D;.www.pragma.com.co; HttpOnly; Secure; SameSite&#x3D;None</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Cache-Control</td>
+                                                    <td>s-maxage&#x3D;10800, max-age&#x3D;0</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">ETag</td>
+                                                    <td>W/&quot;ff144261acf80d681f471454d65b54bf&quot;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Last-Modified</td>
+                                                    <td>Sun, 11 Apr 2021 23:17:14 GMT</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Link</td>
+                                                    <td>&lt;/hs/hsstatic/HubspotToolsMenu/static-1.99/js/index.js&gt;; rel&#x3D;preload; as&#x3D;script,&lt;/hs/hsstatic/cos-i18n/static-1.27/bundles/project.js&gt;; rel&#x3D;preload; as&#x3D;script</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Strict-Transport-Security</td>
+                                                    <td>max-age&#x3D;0</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">CF-Cache-Status</td>
+                                                    <td>HIT</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Cache-Tag</td>
+                                                    <td>CT-0,P-2829524,L-42003505421,W-41673539140,CW-41739390890,CW-41739390891,CW-5776170402,CW-5776170457,E-41739390868,E-41739390869,MENU-41673539140,PGS-ALL,SW-2,GC-41872060167,GC-43936386720</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Content-Security-Policy</td>
+                                                    <td>upgrade-insecure-requests</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Edge-Cache-Tag</td>
+                                                    <td>CT-0,P-2829524,L-42003505421,W-41673539140,CW-41739390890,CW-41739390891,CW-5776170402,CW-5776170457,E-41739390868,E-41739390869,MENU-41673539140,PGS-ALL,SW-2,GC-41872060167,GC-43936386720</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Referrer-Policy</td>
+                                                    <td>no-referrer-when-downgrade</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-HS-Cache-Config</td>
+                                                    <td>BrowserCache-5s-EdgeCache-180s</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-HS-Combine-CSS</td>
+                                                    <td>Disabled</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-HS-Hub-Id</td>
+                                                    <td>2829524</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-HS-Search-Settings-Id</td>
+                                                    <td>5183125756</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Powered-By</td>
+                                                    <td>HubSpot</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Robots-Tag</td>
+                                                    <td>none</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">cf-request-id</td>
+                                                    <td>096556c9d10000da9ab8854000000001</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Expect-CT</td>
+                                                    <td>max-age&#x3D;604800, report-uri&#x3D;&quot;https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct&quot;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Report-To</td>
+                                                    <td>{&quot;endpoints&quot;:[{&quot;url&quot;:&quot;https:\/\/a.nel.cloudflare.com\/report?s&#x3D;ZEn442vnA6k%2BGY6w6RziIemmv%2Fxymnhg1rbJUgWVTLg2K6sbSZfsmTa%2Ba9Rgxnd9bEMp0xrFiys53DK8FSxBRATswNIyyH8fNo8Ry2pGfab05Q%3D%3D&quot;}],&quot;max_age&quot;:604800,&quot;group&quot;:&quot;cf-nel&quot;}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">NEL</td>
+                                                    <td>{&quot;report_to&quot;:&quot;cf-nel&quot;,&quot;max_age&quot;:604800}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Vary</td>
+                                                    <td>Accept-Encoding</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Server</td>
+                                                    <td>cloudflare</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">CF-RAY</td>
+                                                    <td>63e8c0bc897eda9a-BOG</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Content-Encoding</td>
+                                                    <td>br</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Body</h5>
+                                        <div class="dyn-height">
+                                                <pre><code id="copyText-eeb18e0c-99a2-419a-8075-492f889d7cbc" class="prettyPrint">&lt;!doctype html&gt;&lt;!--[if lt IE 7]&gt; &lt;html class&#x3D;&quot;no-js lt-ie9 lt-ie8 lt-ie7&quot; lang&#x3D;&quot;es-co&quot; &gt; &lt;![endif]--&gt;&lt;!--[if IE 7]&gt;    &lt;html class&#x3D;&quot;no-js lt-ie9 lt-ie8&quot; lang&#x3D;&quot;es-co&quot; &gt;        &lt;![endif]--&gt;&lt;!--[if IE 8]&gt;    &lt;html class&#x3D;&quot;no-js lt-ie9&quot; lang&#x3D;&quot;es-co&quot; &gt;               &lt;![endif]--&gt;&lt;!--[if gt IE 8]&gt;&lt;!--&gt;&lt;html class&#x3D;&quot;no-js&quot; lang&#x3D;&quot;es-co&quot;&gt;&lt;!--&lt;![endif]--&gt;&lt;head&gt;
+            &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;
+            &lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;IE&#x3D;edge,chrome&#x3D;1&quot;&gt;
+            &lt;meta name&#x3D;&quot;author&quot; content&#x3D;&quot;Pragma&quot;&gt;
+            &lt;meta name&#x3D;&quot;description&quot; content&#x3D;&quot;&quot;&gt;
+            &lt;meta name&#x3D;&quot;generator&quot; content&#x3D;&quot;HubSpot&quot;&gt;
+            
+            &lt;link rel&#x3D;&quot;shortcut icon&quot; href&#x3D;&quot;https://www.pragma.com.co/hubfs/favicon.png&quot;&gt;
+            
+        
+            &lt;script src&#x3D;&quot;/hs/hsstatic/jquery-libs/static-1.4/jquery/jquery-1.11.2.js&quot;&gt;&lt;/script&gt;
+        &lt;script src&#x3D;&quot;/hs/hsstatic/jquery-libs/static-1.4/jquery-migrate/jquery-migrate-1.2.1.js&quot;&gt;&lt;/script&gt;
+        &lt;script&gt;hsjQuery &#x3D; window[&#x27;jQuery&#x27;];&lt;/script&gt;
+            &lt;meta property&#x3D;&quot;og:description&quot; content&#x3D;&quot;&quot;&gt;
+            &lt;meta property&#x3D;&quot;og:title&quot; content&#x3D;&quot;&quot;&gt;
+            &lt;meta name&#x3D;&quot;twitter:description&quot; content&#x3D;&quot;&quot;&gt;
+            &lt;meta name&#x3D;&quot;twitter:title&quot; content&#x3D;&quot;&quot;&gt;
+        
+            
+        
+            
+            &lt;style&gt;
+        a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-box !important;box-sizing:content-box !important;vertical-align:middle}.hs-breadcrumb-menu{list-style-type:none;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px}.hs-breadcrumb-menu-item{float:left;padding:10px 0px 10px 10px}.hs-breadcrumb-menu-divider:before{content:&#x27;›&#x27;;padding-left:10px}.hs-featured-image-link{border:0}.hs-featured-image{float:right;margin:0 0 20px 20px;max-width:50%}@media (max-width: 568px){.hs-featured-image{float:none;margin:0;width:100%;max-width:100%}}.hs-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px}
+        &lt;/style&gt;
+        
+        &lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;https://cdn2.hubspot.net/hub/-1/hub_generated/module_assets/-2712622/1618183019592/module_-2712622_Site_Search_Input.min.css&quot;&gt;
+        &lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;https://cdn2.hubspot.net/hub/-1/hub_generated/module_assets/-2712624/1618183020641/module_-2712624_Site_Search_Results.min.css&quot;&gt;
+            
+        
+            
+            &lt;link rel&#x3D;&quot;canonical&quot; href&#x3D;&quot;https://www.pragma.com.co/hs-search-results&quot;&gt;
+        
+        &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1&quot;&gt;
+        &lt;!-- Google Tag Manager --&gt;
+        &lt;script&gt;(function(w,d,s,l,i){w[l]&#x3D;w[l]||[];w[l].push({&#x27;gtm.start&#x27;:
+        new Date().getTime(),event:&#x27;gtm.js&#x27;});var f&#x3D;d.getElementsByTagName(s)[0],
+        j&#x3D;d.createElement(s),dl&#x3D;l!&#x3D;&#x27;dataLayer&#x27;?&#x27;&amp;l&#x3D;&#x27;+l:&#x27;&#x27;;j.async&#x3D;true;j.src&#x3D;
+        &#x27;https://www.googletagmanager.com/gtm.js?id&#x3D;&#x27;+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,&#x27;script&#x27;,&#x27;dataLayer&#x27;,&#x27;GTM-NP67TQ&#x27;);&lt;/script&gt;
+        &lt;!-- End Google Tag Manager --&gt;
+        &lt;meta name&#x3D;&quot;google-site-verification&quot; content&#x3D;&quot;1eLzU1tYL7o1U6IwmCq9TDj0vYJQlRSTV2VeQK5-N4g&quot;&gt;
+        &lt;meta property&#x3D;&quot;og:url&quot; content&#x3D;&quot;https://www.pragma.com.co/hs-search-results&quot;&gt;
+        &lt;meta name&#x3D;&quot;twitter:card&quot; content&#x3D;&quot;summary&quot;&gt;
+        &lt;meta http-equiv&#x3D;&quot;content-language&quot; content&#x3D;&quot;es-co&quot;&gt;
+        &lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;//cdn2.hubspot.net/hub/7052064/hub_generated/template_assets/1618004035803/hubspot/hubspot_default/shared/responsive/layout.min.css&quot;&gt;
+        
+        
+        &lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;https://www.pragma.com.co/hs-fs/hub/2829524/hub_generated/template_assets/41739390869/1617989728961/SITIO_WEB_2021/Coded_files/Pragma_theme_style.min.css&quot;&gt;
+        
+        
+        
+        
+        &lt;/head&gt;
+        &lt;body class&#x3D;&quot;   hs-content-id-0 hs-site-page page &quot; style&#x3D;&quot;&quot;&gt;
+            &lt;div class&#x3D;&quot;header-container-wrapper&quot;&gt;
+            &lt;div class&#x3D;&quot;header-container container-fluid&quot;&gt;
+        
+        &lt;div class&#x3D;&quot;row-fluid-wrapper row-depth-1 row-number-1 &quot;&gt;
+        &lt;div class&#x3D;&quot;row-fluid &quot;&gt;
+        &lt;div class&#x3D;&quot;span12 widget-span widget-type-custom_widget &quot; style&#x3D;&quot;&quot; data-widget-type&#x3D;&quot;custom_widget&quot; data-x&#x3D;&quot;0&quot; data-w&#x3D;&quot;12&quot;&gt;
+        &lt;div id&#x3D;&quot;hs_cos_wrapper_module_1614301039341155&quot; class&#x3D;&quot;hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module&quot; style&#x3D;&quot;&quot; data-hs-cos-general-type&#x3D;&quot;widget&quot; data-hs-cos-type&#x3D;&quot;module&quot;&gt;&lt;div id&#x3D;&quot;popup-search&quot;&gt;
+          &lt;div class&#x3D;&quot;close-popup-hidden&quot;&gt;&lt;/div&gt;
+          &lt;div class&#x3D;&quot;container-popup&quot;&gt;
+            &lt;form action&#x3D;&quot;/hs-search-results&quot;&gt;
+              &lt;input type&#x3D;&quot;search&quot; class&#x3D;&quot;hs-input&quot; name&#x3D;&quot;term&quot; autocomplete&#x3D;&quot;off&quot; placeholder&#x3D;&quot;Buscar en este sitio&quot;&gt;
+              &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;hs-button primary&quot;&gt;&lt;i class&#x3D;&quot;fa fa-search&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+            &lt;/form&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;header class&#x3D;&quot;global-header&quot;&gt;
+            &lt;div class&#x3D;&quot;global-header-inner&quot;&gt;
+              &lt;div class&#x3D;&quot;site-logo&quot;&gt;
+                &lt;span id&#x3D;&quot;hs_cos_wrapper_module_1614301039341155_&quot; class&#x3D;&quot;hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo&quot; style&#x3D;&quot;&quot; data-hs-cos-general-type&#x3D;&quot;widget&quot; data-hs-cos-type&#x3D;&quot;logo&quot;&gt;&lt;a href&#x3D;&quot;//www.pragma.com.co?hsLang&#x3D;es-co&quot; id&#x3D;&quot;hs-link-module_1614301039341155_&quot; style&#x3D;&quot;border-width:0px;border:0px;&quot;&gt;&lt;img src&#x3D;&quot;https://www.pragma.com.co/hubfs/pragma_theme2021/images/Header%20Logo.svg&quot; class&#x3D;&quot;hs-image-widget &quot; style&#x3D;&quot;width:218px;border-width:0px;border:0px;&quot; width&#x3D;&quot;218&quot; alt&#x3D;&quot;Header Logo&quot; title&#x3D;&quot;Header Logo&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;right-navigation&quot;&gt;
+                &lt;span id&#x3D;&quot;hs_cos_wrapper_module_1614301039341155_&quot; class&#x3D;&quot;hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu&quot; style&#x3D;&quot;&quot; data-hs-cos-general-type&#x3D;&quot;widget&quot; data-hs-cos-type&#x3D;&quot;menu&quot;&gt;&lt;div id&#x3D;&quot;hs_menu_wrapper_module_1614301039341155_&quot; class&#x3D;&quot;hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal&quot; role&#x3D;&quot;navigation&quot; data-sitemap-name&#x3D;&quot;default&quot; data-menu-id&#x3D;&quot;41673539140&quot; aria-label&#x3D;&quot;Navigation Menu&quot;&gt;
+         &lt;ul&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/&quot; role&#x3D;&quot;menuitem&quot;&gt;INICIO&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1 hs-item-has-children&quot; role&#x3D;&quot;menu&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios&quot; aria-haspopup&#x3D;&quot;true&quot; aria-expanded&#x3D;&quot;false&quot; role&#x3D;&quot;menuitem&quot;&gt;SERVICIOS&lt;/a&gt;
+           &lt;ul class&#x3D;&quot;hs-menu-children-wrapper&quot;&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/agilismo&quot; role&#x3D;&quot;menuitem&quot;&gt;Consultoría en Agilismo&lt;/a&gt;&lt;/li&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/consultoria-en-omnicanalidad&quot; role&#x3D;&quot;menuitem&quot;&gt;Omnicanalidad&lt;/a&gt;&lt;/li&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/equipos-alto-desempeno&quot; role&#x3D;&quot;menuitem&quot;&gt;Equipos de Alto Desempeño&lt;/a&gt;&lt;/li&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/e-commerce&quot; role&#x3D;&quot;menuitem&quot;&gt;E-commerce&lt;/a&gt;&lt;/li&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/martech&quot; role&#x3D;&quot;menuitem&quot;&gt;Martech&lt;/a&gt;&lt;/li&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/servicios-en-la-nube&quot; role&#x3D;&quot;menuitem&quot;&gt;Servicios en la Nube&lt;/a&gt;&lt;/li&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/integracion-api-microservicios-soa&quot; role&#x3D;&quot;menuitem&quot;&gt;Integración API, Microservicios SOA&lt;/a&gt;&lt;/li&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/data-y-analitica-digital&quot; role&#x3D;&quot;menuitem&quot;&gt;Data y Analítica&lt;/a&gt;&lt;/li&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/innovacion-digital&quot; role&#x3D;&quot;menuitem&quot;&gt;Innovación Digital&lt;/a&gt;&lt;/li&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/autenticacion-digital&quot; role&#x3D;&quot;menuitem&quot;&gt;Autenticación Digital&lt;/a&gt;&lt;/li&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/diseno-productos-digitales&quot; role&#x3D;&quot;menuitem&quot;&gt;Diseño de Productos Digitales&lt;/a&gt;&lt;/li&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/automatizacion-de-negocios&quot; role&#x3D;&quot;menuitem&quot;&gt;Automatización de Negocio&lt;/a&gt;&lt;/li&gt;
+           &lt;/ul&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/casos-de-exito&quot; role&#x3D;&quot;menuitem&quot;&gt;CASOS DE ÉXITO&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1 hs-item-has-children&quot; role&#x3D;&quot;menu&quot;&gt;&lt;a href&#x3D;&quot;javascript:;&quot; aria-haspopup&#x3D;&quot;true&quot; aria-expanded&#x3D;&quot;false&quot; role&#x3D;&quot;menuitem&quot;&gt;SOBRE PRAGMA&lt;/a&gt;
+           &lt;ul class&#x3D;&quot;hs-menu-children-wrapper&quot;&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/sobre-pragma&quot; role&#x3D;&quot;menuitem&quot;&gt;Somos Pragma&lt;/a&gt;&lt;/li&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/sobre-pragma/cultura&quot; role&#x3D;&quot;menuitem&quot;&gt;Cultura Pragma&lt;/a&gt;&lt;/li&gt;
+           &lt;/ul&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1 hs-item-has-children&quot; role&#x3D;&quot;menu&quot;&gt;&lt;a href&#x3D;&quot;javascript:;&quot; aria-haspopup&#x3D;&quot;true&quot; aria-expanded&#x3D;&quot;false&quot; role&#x3D;&quot;menuitem&quot;&gt;TRABAJA CON NOSOTROS&lt;/a&gt;
+           &lt;ul class&#x3D;&quot;hs-menu-children-wrapper&quot;&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/ofertas-de-empleo&quot; role&#x3D;&quot;menuitem&quot;&gt;Ofertas de Empleo&lt;/a&gt;&lt;/li&gt;
+            &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-2&quot; role&#x3D;&quot;menuitem&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/trabajo-desde-casa&quot; role&#x3D;&quot;menuitem&quot;&gt;Trabaja desde Casa&lt;/a&gt;&lt;/li&gt;
+           &lt;/ul&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/academia&quot; role&#x3D;&quot;menuitem&quot;&gt;ACADEMIA&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/contacto&quot; role&#x3D;&quot;menuitem&quot;&gt;CONTACTO&lt;/a&gt;&lt;/li&gt;
+         &lt;/ul&gt;
+        &lt;/div&gt;&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;nav-language&quot;&gt;
+                &lt;span id&#x3D;&quot;hs_cos_wrapper_module_1614301039341155_&quot; class&#x3D;&quot;hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu&quot; style&#x3D;&quot;&quot; data-hs-cos-general-type&#x3D;&quot;widget&quot; data-hs-cos-type&#x3D;&quot;simple_menu&quot;&gt;&lt;div id&#x3D;&quot;hs_menu_wrapper_module_1614301039341155_&quot; class&#x3D;&quot;hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal&quot; role&#x3D;&quot;navigation&quot; data-sitemap-name&#x3D;&quot;&quot; data-menu-id&#x3D;&quot;&quot; aria-label&#x3D;&quot;Navigation Menu&quot;&gt;
+         &lt;ul&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/es&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;ES&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;javascript:void(0);&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;/&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/en&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;EN&lt;/a&gt;&lt;/li&gt;
+         &lt;/ul&gt;
+        &lt;/div&gt;&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;right-search-bar&quot;&gt;
+                &lt;a href&#x3D;&quot;javascript:void();&quot; class&#x3D;&quot;icon-search-event&quot;&gt;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; width&#x3D;&quot;20&quot; height&#x3D;&quot;20&quot; viewbox&#x3D;&quot;0 0 20 20&quot; fill&#x3D;&quot;none&quot;&gt;
+                  &lt;path d&#x3D;&quot;M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z&quot; stroke&#x3D;&quot;#333333&quot; stroke-width&#x3D;&quot;2&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; /&gt;
+                  &lt;path d&#x3D;&quot;M17.5 17.5L13.875 13.875&quot; stroke&#x3D;&quot;#333333&quot; stroke-width&#x3D;&quot;2&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; /&gt;
+                &lt;/svg&gt;&lt;/a&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/header&gt;&lt;/div&gt;
+        
+        &lt;/div&gt;&lt;!--end widget-span --&gt;
+        &lt;/div&gt;&lt;!--end row--&gt;
+        &lt;/div&gt;&lt;!--end row-wrapper --&gt;
+        
+            &lt;/div&gt;&lt;!--end header --&gt;
+        &lt;/div&gt;&lt;!--end header wrapper --&gt;
+        
+        &lt;div class&#x3D;&quot;body-container-wrapper&quot;&gt;
+            &lt;div class&#x3D;&quot;body-container container-fluid&quot;&gt;
+        
+        &lt;div class&#x3D;&quot;row-fluid-wrapper row-depth-1 row-number-1 &quot;&gt;
+        &lt;div class&#x3D;&quot;row-fluid &quot;&gt;
+        &lt;div class&#x3D;&quot;span12 widget-span widget-type-cell container-white-spacing&quot; style&#x3D;&quot;&quot; data-widget-type&#x3D;&quot;cell&quot; data-x&#x3D;&quot;0&quot; data-w&#x3D;&quot;12&quot;&gt;
+        
+        &lt;div class&#x3D;&quot;row-fluid-wrapper row-depth-1 row-number-2 &quot;&gt;
+        &lt;div class&#x3D;&quot;row-fluid &quot;&gt;
+        &lt;div class&#x3D;&quot;span12 widget-span widget-type-custom_widget &quot; style&#x3D;&quot;&quot; data-widget-type&#x3D;&quot;custom_widget&quot; data-x&#x3D;&quot;0&quot; data-w&#x3D;&quot;12&quot;&gt;
+        &lt;div id&#x3D;&quot;hs_cos_wrapper_module_1520280528083302&quot; class&#x3D;&quot;hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module&quot; style&#x3D;&quot;&quot; data-hs-cos-general-type&#x3D;&quot;widget&quot; data-hs-cos-type&#x3D;&quot;module&quot;&gt;
+        
+        &lt;div class&#x3D;&quot;hs-search-field&quot;&gt; 
+            &lt;div class&#x3D;&quot;hs-search-field__bar&quot;&gt; 
+              &lt;form action&#x3D;&quot;/hs-search-results&quot;&gt;
+                
+                &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;hs-search-field__input&quot; name&#x3D;&quot;term&quot; autocomplete&#x3D;&quot;off&quot; aria-label&#x3D;&quot;Search&quot; placeholder&#x3D;&quot;Search&quot;&gt;
+                
+                
+                  &lt;input type&#x3D;&quot;hidden&quot; name&#x3D;&quot;type&quot; value&#x3D;&quot;SITE_PAGE&quot;&gt;
+                
+                
+                
+                  &lt;input type&#x3D;&quot;hidden&quot; name&#x3D;&quot;type&quot; value&#x3D;&quot;BLOG_POST&quot;&gt;
+                  &lt;input type&#x3D;&quot;hidden&quot; name&#x3D;&quot;type&quot; value&#x3D;&quot;LISTING_PAGE&quot;&gt;
+                
+                
+        
+                
+              &lt;/form&gt;
+            &lt;/div&gt;
+            &lt;ul class&#x3D;&quot;hs-search-field__suggestions&quot;&gt;&lt;/ul&gt;
+        &lt;/div&gt;&lt;/div&gt;
+        
+        &lt;/div&gt;&lt;!--end widget-span --&gt;
+        &lt;/div&gt;&lt;!--end row--&gt;
+        &lt;/div&gt;&lt;!--end row-wrapper --&gt;
+        
+        &lt;div class&#x3D;&quot;row-fluid-wrapper row-depth-1 row-number-3 &quot;&gt;
+        &lt;div class&#x3D;&quot;row-fluid &quot;&gt;
+        &lt;div class&#x3D;&quot;span12 widget-span widget-type-custom_widget &quot; style&#x3D;&quot;&quot; data-widget-type&#x3D;&quot;custom_widget&quot; data-x&#x3D;&quot;0&quot; data-w&#x3D;&quot;12&quot;&gt;
+        &lt;div id&#x3D;&quot;hs_cos_wrapper_module_1520280531280304&quot; class&#x3D;&quot;hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module&quot; style&#x3D;&quot;&quot; data-hs-cos-general-type&#x3D;&quot;widget&quot; data-hs-cos-type&#x3D;&quot;module&quot;&gt;&lt;div class&#x3D;&quot;hs-search-results&quot;&gt;
+          &lt;template class&#x3D;&quot;hs-search-results__template&quot;&gt;
+            &lt;li&gt;
+              
+              &lt;a href&#x3D;&quot;#&quot; class&#x3D;&quot;hs-search-results__title&quot;&gt;Content Title&lt;/a&gt;
+              &lt;p class&#x3D;&quot;hs-search-results__description&quot;&gt;Description&lt;/p&gt;
+            &lt;/li&gt;
+          &lt;/template&gt;
+          &lt;ul id&#x3D;&quot;hsresults&quot; class&#x3D;&quot;hs-search-results__listing&quot;&gt;&lt;/ul&gt;
+          &lt;div class&#x3D;&quot;hs-search-results__pagination&quot; data-search-path&#x3D;&quot;hs-search-results&quot;&gt;
+            &lt;a href&#x3D;&quot;?hsLang&#x3D;es-co&quot; class&#x3D;&quot;hs-search-results__prev-page&quot;&gt;&lt;/a&gt;
+            &lt;a href&#x3D;&quot;?hsLang&#x3D;es-co&quot; class&#x3D;&quot;hs-search-results__next-page&quot;&gt;&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt; &lt;/div&gt;
+        
+        &lt;/div&gt;&lt;!--end widget-span --&gt;
+        &lt;/div&gt;&lt;!--end row--&gt;
+        &lt;/div&gt;&lt;!--end row-wrapper --&gt;
+        
+        &lt;/div&gt;&lt;!--end widget-span --&gt;
+        &lt;/div&gt;&lt;!--end row--&gt;
+        &lt;/div&gt;&lt;!--end row-wrapper --&gt;
+        
+            &lt;/div&gt;&lt;!--end body --&gt;
+        &lt;/div&gt;&lt;!--end body wrapper --&gt;
+        
+        &lt;div class&#x3D;&quot;footer-container-wrapper&quot;&gt;
+            &lt;div class&#x3D;&quot;footer-container container-fluid&quot;&gt;
+        
+        &lt;div class&#x3D;&quot;row-fluid-wrapper row-depth-1 row-number-1 &quot;&gt;
+        &lt;div class&#x3D;&quot;row-fluid &quot;&gt;
+        &lt;div class&#x3D;&quot;span12 widget-span widget-type-custom_widget &quot; style&#x3D;&quot;&quot; data-widget-type&#x3D;&quot;custom_widget&quot; data-x&#x3D;&quot;0&quot; data-w&#x3D;&quot;12&quot;&gt;
+        &lt;div id&#x3D;&quot;hs_cos_wrapper_module_1614301032014138&quot; class&#x3D;&quot;hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module&quot; style&#x3D;&quot;&quot; data-hs-cos-general-type&#x3D;&quot;widget&quot; data-hs-cos-type&#x3D;&quot;module&quot;&gt;&lt;footer class&#x3D;&quot;footer font-white&quot;&gt;
+          &lt;div class&#x3D;&quot;medium-wrapper&quot;&gt;
+            &lt;div class&#x3D;&quot;footer-logo pt30&quot;&gt;
+              &lt;span id&#x3D;&quot;hs_cos_wrapper_module_1614301032014138_&quot; class&#x3D;&quot;hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo&quot; style&#x3D;&quot;&quot; data-hs-cos-general-type&#x3D;&quot;widget&quot; data-hs-cos-type&#x3D;&quot;logo&quot;&gt;&lt;a href&#x3D;&quot;//www.pragma.com.co?hsLang&#x3D;es-co&quot; id&#x3D;&quot;hs-link-module_1614301032014138_&quot; style&#x3D;&quot;border-width:0px;border:0px;&quot;&gt;&lt;img src&#x3D;&quot;https://www.pragma.com.co/hubfs/pragma_theme2021/images/Footer%20Logo.svg&quot; class&#x3D;&quot;hs-image-widget &quot; style&#x3D;&quot;width:218px;border-width:0px;border:0px;&quot; width&#x3D;&quot;218&quot; alt&#x3D;&quot;Footer Logo&quot; title&#x3D;&quot;Footer Logo&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;footer-bottom&quot;&gt;
+            &lt;div class&#x3D;&quot;wrapper&quot;&gt;
+              &lt;div class&#x3D;&quot;row&quot;&gt;
+                &lt;div class&#x3D;&quot;col-md-4 cm-sm-12&quot;&gt;
+                  &lt;div class&#x3D;&quot;row&quot;&gt;
+                    &lt;div class&#x3D;&quot;col-12 pb30&quot;&gt;
+                      &lt;h4&gt;Nuestras oficinas&lt;/h4&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;col-12&quot;&gt;
+                      &lt;div class&#x3D;&quot;row&quot;&gt;
+                        &lt;div class&#x3D;&quot;col-md-5 col-sm-12&quot;&gt;
+                          &lt;div class&#x3D;&quot;address&quot;&gt;
+                            &lt;p&gt;&lt;strong&gt;Con presencia en&lt;br&gt;&lt;/strong&gt;Medellín&lt;br&gt;Bogotá&lt;br&gt;Cali&lt;br&gt;Panamá&lt;br&gt;Guatemala&lt;br&gt;México&lt;br&gt;Perú&lt;/p&gt;
+                          &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;col-md-6 col-sm-12&quot;&gt;
+                          &lt;div class&#x3D;&quot;contact-text mtop30&quot;&gt;
+                            &lt;p&gt;&lt;strong&gt;Contáctenos&lt;br&gt;&lt;/strong&gt;Código postal 050022&lt;br&gt;t: +57 (323) 563 9223&lt;br&gt;info@pragma.com.co&lt;/p&gt;
+                          &lt;/div&gt;
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;col-md-8 cm-sm-12&quot;&gt;
+                  &lt;div class&#x3D;&quot;row&quot;&gt;
+                    &lt;div class&#x3D;&quot;col-12 pb30 mtop30&quot;&gt;
+                      &lt;h4&gt;¿Qué hacemos ?&lt;/h4&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;col-12&quot;&gt;
+                      &lt;div class&#x3D;&quot;row&quot;&gt;
+                        &lt;div class&#x3D;&quot;col-md-6 col-lg-4 col-sm-12&quot;&gt;
+                          &lt;div class&#x3D;&quot;footer-menu-link&quot;&gt;
+                            &lt;span id&#x3D;&quot;hs_cos_wrapper_module_1614301032014138_&quot; class&#x3D;&quot;hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu&quot; style&#x3D;&quot;&quot; data-hs-cos-general-type&#x3D;&quot;widget&quot; data-hs-cos-type&#x3D;&quot;simple_menu&quot;&gt;&lt;div id&#x3D;&quot;hs_menu_wrapper_module_1614301032014138_&quot; class&#x3D;&quot;hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal&quot; role&#x3D;&quot;navigation&quot; data-sitemap-name&#x3D;&quot;&quot; data-menu-id&#x3D;&quot;&quot; aria-label&#x3D;&quot;Navigation Menu&quot;&gt;
+         &lt;ul&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/agilismo&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;Consultoría en Agilismo&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/e-commerce&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;E-commerce&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/integracion-api-microservicios-soa&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;Integración API, Microservicios SOA&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/autenticacion-digital&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;Autenticación Digital&lt;/a&gt;&lt;/li&gt;
+         &lt;/ul&gt;
+        &lt;/div&gt;&lt;/span&gt;
+                          &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;col-md-6 col-lg-4 col-sm-12 mtop30&quot;&gt;
+                          &lt;div class&#x3D;&quot;footer-menu-link&quot;&gt;
+                            &lt;span id&#x3D;&quot;hs_cos_wrapper_module_1614301032014138_&quot; class&#x3D;&quot;hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu&quot; style&#x3D;&quot;&quot; data-hs-cos-general-type&#x3D;&quot;widget&quot; data-hs-cos-type&#x3D;&quot;simple_menu&quot;&gt;&lt;div id&#x3D;&quot;hs_menu_wrapper_module_1614301032014138_&quot; class&#x3D;&quot;hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal&quot; role&#x3D;&quot;navigation&quot; data-sitemap-name&#x3D;&quot;&quot; data-menu-id&#x3D;&quot;&quot; aria-label&#x3D;&quot;Navigation Menu&quot;&gt;
+         &lt;ul&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/consultoria-en-omnicanalidad&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;Omnicanalidad&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/martech&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;Martech&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/data-y-analitica-digital&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;Data y Analítica&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/diseno-productos-digitales&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;Diseño de Productos Digitales&lt;/a&gt;&lt;/li&gt;
+         &lt;/ul&gt;
+        &lt;/div&gt;&lt;/span&gt;
+                          &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;col-md-6 col-lg-4 col-sm-12 tabtop30&quot;&gt;
+                          &lt;div class&#x3D;&quot;footer-menu-link&quot;&gt;
+                            &lt;span id&#x3D;&quot;hs_cos_wrapper_module_1614301032014138_&quot; class&#x3D;&quot;hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu&quot; style&#x3D;&quot;&quot; data-hs-cos-general-type&#x3D;&quot;widget&quot; data-hs-cos-type&#x3D;&quot;simple_menu&quot;&gt;&lt;div id&#x3D;&quot;hs_menu_wrapper_module_1614301032014138_&quot; class&#x3D;&quot;hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal&quot; role&#x3D;&quot;navigation&quot; data-sitemap-name&#x3D;&quot;&quot; data-menu-id&#x3D;&quot;&quot; aria-label&#x3D;&quot;Navigation Menu&quot;&gt;
+         &lt;ul&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/equipos-alto-desempeno&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;Equipos de Alto Desempeño&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/servicios-en-la-nube&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;Servicios en la Nube&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/innovacion-digital&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;Innovación Digital&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hs-menu-item hs-menu-depth-1&quot;&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/servicios/automatizacion-de-negocios&quot; role&#x3D;&quot;menuitem&quot; target&#x3D;&quot;_self&quot;&gt;Automatización de Negocio&lt;/a&gt;&lt;/li&gt;
+         &lt;/ul&gt;
+        &lt;/div&gt;&lt;/span&gt;
+                          &lt;/div&gt;
+                        &lt;/div&gt;
+        
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;terms-of-links social-terms&quot;&gt;
+            &lt;div class&#x3D;&quot;wrapper&quot;&gt;
+              &lt;div class&#x3D;&quot;row&quot;&gt;
+                &lt;div class&#x3D;&quot;col-md-4&quot;&gt;
+                  &lt;div class&#x3D;&quot;social-title&quot;&gt;
+                    &lt;h4&gt;Síguenos&lt;/h4&gt;
+                  &lt;/div&gt;
+                  &lt;div class&#x3D;&quot;social-links noList-style&quot;&gt;
+                    &lt;ul&gt;
+                      &lt;li&gt;
+                        &lt;a href&#x3D;&quot;https://www.facebook.com/108092989233739&quot; target&#x3D;&quot;_blank&quot;&gt;
+                          &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; width&#x3D;&quot;6&quot; height&#x3D;&quot;10&quot; viewbox&#x3D;&quot;0 0 6 10&quot; fill&#x3D;&quot;none&quot;&gt;
+                            &lt;path d&#x3D;&quot;M1.61334 10V5.30771H0.334961V3.61826H1.61334V2.17525C1.61334 1.04132 2.36849 0 4.1085 0C4.813 0 5.33395 0.06555 5.33395 0.06555L5.2929 1.64321C5.2929 1.64321 4.76162 1.63819 4.18186 1.63819C3.55438 1.63819 3.45385 1.91884 3.45385 2.38465V3.61826H5.34278L5.26059 5.30771H3.45385V10H1.61334Z&quot; fill&#x3D;&quot;black&quot; /&gt;
+                          &lt;/svg&gt;
+                        &lt;/a&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href&#x3D;&quot;https://www.instagram.com/somospragma&quot; target&#x3D;&quot;_blank&quot;&gt;
+                          &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; width&#x3D;&quot;11&quot; height&#x3D;&quot;10&quot; viewbox&#x3D;&quot;0 0 11 10&quot; fill&#x3D;&quot;none&quot;&gt;
+                            &lt;path d&#x3D;&quot;M5.37415 2.43452C3.95225 2.43452 2.8047 3.58029 2.8047 5C2.8047 6.41971 3.95225 7.56548 5.37415 7.56548C6.79605 7.56548 7.9436 6.41971 7.9436 5C7.9436 3.58029 6.79605 2.43452 5.37415 2.43452ZM5.37415 6.66738C4.45461 6.66738 3.7042 5.91812 3.7042 5C3.7042 4.08188 4.45461 3.33262 5.37415 3.33262C6.29369 3.33262 7.0441 4.08188 7.0441 5C7.0441 5.91812 6.29369 6.66738 5.37415 6.66738ZM8.04883 1.73154C7.71685 1.73154 7.44875 1.99922 7.44875 2.3307C7.44875 2.66217 7.71685 2.92985 8.04883 2.92985C8.38082 2.92985 8.64891 2.66342 8.64891 2.3307C8.64901 2.25199 8.63356 2.17403 8.60344 2.10129C8.57331 2.02856 8.52912 1.96247 8.47337 1.90681C8.41763 1.85115 8.35144 1.80702 8.27859 1.77695C8.20574 1.74687 8.12766 1.73144 8.04883 1.73154ZM10.3828 5C10.3828 4.30953 10.389 3.62532 10.3502 2.93611C10.3113 2.13556 10.1284 1.42508 9.54214 0.839689C8.95459 0.253043 8.24427 0.0716702 7.44249 0.032894C6.75095 -0.00588219 6.06568 0.000372057 5.3754 0.000372057C4.68387 0.000372057 3.9986 -0.00588219 3.30832 0.032894C2.50654 0.0716702 1.79496 0.254294 1.20866 0.839689C0.62111 1.42634 0.439457 2.13556 0.400621 2.93611C0.361785 3.62657 0.368048 4.31078 0.368048 5C0.368048 5.68922 0.361785 6.37468 0.400621 7.06389C0.439457 7.86444 0.622362 8.57491 1.20866 9.16031C1.79622 9.74696 2.50654 9.92833 3.30832 9.96711C3.99985 10.0059 4.68512 9.99963 5.3754 9.99963C6.06694 9.99963 6.75221 10.0059 7.44249 9.96711C8.24427 9.92833 8.95584 9.74571 9.54214 9.16031C10.1297 8.57366 10.3113 7.86444 10.3502 7.06389C10.3903 6.37468 10.3828 5.69047 10.3828 5ZM9.28031 7.94949C9.18886 8.17715 9.07862 8.34726 8.90197 8.52238C8.72533 8.69875 8.55621 8.80882 8.3282 8.90014C7.66924 9.16156 6.10452 9.10277 5.37415 9.10277C4.64378 9.10277 3.07781 9.16156 2.41885 8.90139C2.19084 8.81007 2.02046 8.7 1.84507 8.52363C1.66843 8.34726 1.55819 8.1784 1.46674 7.95074C1.20616 7.29155 1.26504 5.72924 1.26504 5C1.26504 4.27076 1.20616 2.7072 1.46674 2.04926C1.55819 1.8216 1.66843 1.65149 1.84507 1.47637C2.02172 1.30125 2.19084 1.18993 2.41885 1.09861C3.07781 0.838438 4.64378 0.897228 5.37415 0.897228C6.10452 0.897228 7.67049 0.838438 8.32945 1.09861C8.55746 1.18993 8.72784 1.3 8.90323 1.47637C9.07987 1.65274 9.19011 1.8216 9.28157 2.04926C9.54214 2.7072 9.48326 4.27076 9.48326 5C9.48326 5.72924 9.54214 7.29155 9.28031 7.94949Z&quot; fill&#x3D;&quot;black&quot; /&gt;
+                          &lt;/svg&gt;
+                        &lt;/a&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href&#x3D;&quot;https://www.youtube.com/channel/UCKREmrTKcVtsaSvNsycXdNw?sub_confirmation&#x3D;1&quot; target&#x3D;&quot;_blank&quot;&gt;
+                          &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; width&#x3D;&quot;11&quot; height&#x3D;&quot;7&quot; viewbox&#x3D;&quot;0 0 11 7&quot; fill&#x3D;&quot;none&quot;&gt;
+                            &lt;path d&#x3D;&quot;M10.4199 3.46984C10.4199 3.44614 10.4199 3.41921 10.4188 3.38797C10.4177 3.30071 10.4155 3.20268 10.4132 3.09818C10.4043 2.79763 10.3886 2.49815 10.364 2.21591C10.3305 1.82702 10.2813 1.50277 10.2143 1.25931C10.1435 1.00524 10.0047 0.773521 9.81192 0.587315C9.6191 0.40111 9.37894 0.266939 9.11545 0.198215C8.7991 0.116343 8.17983 0.0657125 7.30794 0.0344721C6.89323 0.0193905 6.44945 0.00969522 6.00568 0.00430895C5.8503 0.00215444 5.7061 0.00107725 5.57644 0H5.2478C5.11813 0.00107725 4.97393 0.00215444 4.81856 0.00430895C4.37478 0.00969522 3.93101 0.0193905 3.5163 0.0344721C2.6444 0.0667897 2.02401 0.117421 1.70879 0.198215C1.44521 0.266771 1.20496 0.400884 1.0121 0.587116C0.819252 0.773348 0.680577 1.00516 0.609975 1.25931C0.541788 1.50277 0.493722 1.82702 0.460188 2.21591C0.435596 2.49815 0.419946 2.79763 0.411004 3.09818C0.40765 3.20268 0.406532 3.30071 0.405415 3.38797C0.405415 3.41921 0.404297 3.44614 0.404297 3.46984V3.53016C0.404297 3.55386 0.404297 3.58079 0.405415 3.61203C0.406532 3.69929 0.408768 3.79732 0.411004 3.90182C0.419946 4.20237 0.435596 4.50185 0.460188 4.78409C0.493722 5.17298 0.542906 5.49723 0.609975 5.74069C0.753056 6.25669 1.17335 6.6639 1.70879 6.80178C2.02401 6.88366 2.6444 6.93429 3.5163 6.96553C3.93101 6.98061 4.37478 6.9903 4.81856 6.99569C4.97393 6.99785 5.11813 6.99892 5.2478 7H5.57644C5.7061 6.99892 5.8503 6.99785 6.00568 6.99569C6.44945 6.9903 6.89323 6.98061 7.30794 6.96553C8.17983 6.93321 8.80022 6.88258 9.11545 6.80178C9.65088 6.6639 10.0712 6.25777 10.2143 5.74069C10.2824 5.49723 10.3305 5.17298 10.364 4.78409C10.3886 4.50185 10.4043 4.20237 10.4132 3.90182C10.4166 3.79732 10.4177 3.69929 10.4188 3.61203C10.4188 3.58079 10.4199 3.55386 10.4199 3.53016V3.46984ZM9.61511 3.52585C9.61511 3.54848 9.61511 3.57325 9.61399 3.60234C9.61287 3.68636 9.61064 3.77901 9.6084 3.87919C9.60058 4.16574 9.58493 4.45229 9.56145 4.71837C9.53127 5.06525 9.4888 5.34965 9.43626 5.54032C9.36695 5.78917 9.16351 5.9863 8.90641 6.05202C8.67167 6.11234 8.08035 6.16082 7.27664 6.1899C6.86975 6.20499 6.43157 6.21468 5.9945 6.22007C5.84136 6.22222 5.6994 6.2233 5.57197 6.2233H5.25227L4.82973 6.22007C4.39267 6.21468 3.9556 6.20499 3.5476 6.1899C2.74389 6.15974 2.15144 6.11234 1.91782 6.05202C1.66072 5.98523 1.45728 5.78917 1.38798 5.54032C1.33544 5.34965 1.29296 5.06525 1.26278 4.71837C1.23931 4.45229 1.22477 4.16574 1.21583 3.87919C1.21248 3.77901 1.21136 3.68529 1.21024 3.60234C1.21024 3.57325 1.20913 3.5474 1.20913 3.52585V3.47415C1.20913 3.45152 1.20913 3.42675 1.21024 3.39766C1.21136 3.31363 1.2136 3.22099 1.21583 3.12081C1.22366 2.83426 1.23931 2.54771 1.26278 2.28162C1.29296 1.93475 1.33544 1.65035 1.38798 1.45968C1.45728 1.21083 1.66072 1.0137 1.91782 0.947984C2.15256 0.887658 2.74389 0.839181 3.5476 0.810095C3.95448 0.795014 4.39267 0.785318 4.82973 0.779932C4.98288 0.777778 5.12484 0.776701 5.25227 0.776701H5.57197L5.9945 0.779932C6.43157 0.785318 6.86863 0.795014 7.27664 0.810095C8.08035 0.840258 8.67279 0.887658 8.90641 0.947984C9.16351 1.01477 9.36695 1.21083 9.43626 1.45968C9.4888 1.65035 9.53127 1.93475 9.56145 2.28162C9.58493 2.54771 9.59946 2.83426 9.6084 3.12081C9.61176 3.22099 9.61287 3.31471 9.61399 3.39766C9.61399 3.42675 9.61511 3.4526 9.61511 3.47415V3.52585ZM4.41726 4.94352L7.0106 3.48923L4.41726 2.05648V4.94352Z&quot; fill&#x3D;&quot;black&quot; /&gt;
+                          &lt;/svg&gt;
+                        &lt;/a&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href&#x3D;&quot;https://www.linkedin.com/company/somospragma&quot; target&#x3D;&quot;_blank&quot;&gt;
+                          &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; width&#x3D;&quot;10&quot; height&#x3D;&quot;10&quot; viewbox&#x3D;&quot;0 50 512 512&quot; fill&#x3D;&quot;none&quot;&gt;
+                            &lt;path d&#x3D;&quot;M150.65,100.682c0,27.992-22.508,50.683-50.273,50.683c-27.765,0-50.273-22.691-50.273-50.683
+                            C50.104,72.691,72.612,50,100.377,50C128.143,50,150.65,72.691,150.65,100.682z M143.294,187.333H58.277V462h85.017V187.333z
+                            M279.195,187.333h-81.541V462h81.541c0,0,0-101.877,0-144.181c0-38.624,17.779-61.615,51.807-61.615
+                            c31.268,0,46.289,22.071,46.289,61.615c0,39.545,0,144.181,0,144.181h84.605c0,0,0-100.344,0-173.915
+                            s-41.689-109.131-99.934-109.131s-82.768,45.369-82.768,45.369V187.333z&quot; fill&#x3D;&quot;black&quot; /&gt;
+                          &lt;/svg&gt;
+                        &lt;/a&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href&#x3D;&quot;https://twitter.com/somospragma&quot; target&#x3D;&quot;_blank&quot;&gt;
+                          &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; width&#x3D;&quot;10&quot; height&#x3D;&quot;10&quot; viewbox&#x3D;&quot;328 355 335 276&quot; fill&#x3D;&quot;none&quot;&gt;
+                            &lt;path d&#x3D;&quot;
+                              M 630, 425
+                              A 195, 195 0 0 1 331, 600
+                              A 142, 142 0 0 0 428, 570
+                              A  70,  70 0 0 1 370, 523
+                              A  70,  70 0 0 0 401, 521
+                              A  70,  70 0 0 1 344, 455
+                              A  70,  70 0 0 0 372, 460
+                              A  70,  70 0 0 1 354, 370
+                              A 195, 195 0 0 0 495, 442
+                              A  67,  67 0 0 1 611, 380
+                              A 117, 117 0 0 0 654, 363
+                              A  65,  65 0 0 1 623, 401
+                              A 117, 117 0 0 0 662, 390
+                              A  65,  65 0 0 1 630, 425
+                              Z&quot; fill&#x3D;&quot;black&quot; /&gt;
+                          &lt;/svg&gt;
+                        &lt;/a&gt;
+                      &lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;col-md-8 text-right&quot;&gt;
+                  &lt;p&gt;&lt;a href&#x3D;&quot;https://www.pragma.com.co/es/terminos-condiciones?hsLang&#x3D;es-co&quot; rel&#x3D;&quot;noopener&quot;&gt;Términos y condiciones&lt;/a&gt; | &lt;a href&#x3D;&quot;https://www.pragma.com.co/es/politicas-privacidad?hsLang&#x3D;es-co&quot; rel&#x3D;&quot;noopener&quot;&gt;Políticas de privacidad&lt;/a&gt;&lt;/p&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/footer&gt;
+        &lt;div class&#x3D;&quot;lineStrip&quot;&gt;
+          &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; width&#x3D;&quot;1920&quot; height&#x3D;&quot;23&quot; viewbox&#x3D;&quot;0 0 1920 23&quot; fill&#x3D;&quot;none&quot;&gt;
+            &lt;rect x&#x3D;&quot;-6&quot; width&#x3D;&quot;1927&quot; height&#x3D;&quot;1079.99&quot; fill&#x3D;&quot;url(#paint0_linear)&quot; /&gt;
+            &lt;rect x&#x3D;&quot;-6&quot; width&#x3D;&quot;1927&quot; height&#x3D;&quot;1079.99&quot; fill&#x3D;&quot;url(#paint1_linear)&quot; /&gt;
+            &lt;rect opacity&#x3D;&quot;0.5&quot; width&#x3D;&quot;1927&quot; height&#x3D;&quot;1079.99&quot; transform&#x3D;&quot;matrix(1 0 0 -1 -6 1080)&quot; fill&#x3D;&quot;url(#paint2_radial)&quot; /&gt;
+            &lt;rect opacity&#x3D;&quot;0.5&quot; width&#x3D;&quot;1927&quot; height&#x3D;&quot;1079.99&quot; transform&#x3D;&quot;matrix(1 0 0 -1 -6 1080)&quot; fill&#x3D;&quot;url(#paint3_radial)&quot; /&gt;
+            &lt;rect opacity&#x3D;&quot;0.5&quot; width&#x3D;&quot;1927&quot; height&#x3D;&quot;1079.99&quot; transform&#x3D;&quot;matrix(1 0 0 -1 -6 1080)&quot; fill&#x3D;&quot;url(#paint4_radial)&quot; /&gt;
+            &lt;rect opacity&#x3D;&quot;0.5&quot; width&#x3D;&quot;1927&quot; height&#x3D;&quot;1079.99&quot; transform&#x3D;&quot;matrix(1 0 0 -1 -6 1080)&quot; fill&#x3D;&quot;url(#paint5_radial)&quot; /&gt;
+            &lt;rect opacity&#x3D;&quot;0.5&quot; width&#x3D;&quot;1927&quot; height&#x3D;&quot;1079.99&quot; transform&#x3D;&quot;matrix(1 0 0 -1 -6 1080)&quot; fill&#x3D;&quot;url(#paint6_radial)&quot; /&gt;
+            &lt;rect opacity&#x3D;&quot;0.5&quot; width&#x3D;&quot;1927&quot; height&#x3D;&quot;1079.99&quot; transform&#x3D;&quot;matrix(1 0 0 -1 -6 1080)&quot; fill&#x3D;&quot;url(#paint7_radial)&quot; /&gt;
+            &lt;defs&gt;
+              &lt;lineargradient id&#x3D;&quot;paint0_linear&quot; x1&#x3D;&quot;73.7899&quot; y1&#x3D;&quot;78.4999&quot; x2&#x3D;&quot;1844.99&quot; y2&#x3D;&quot;1107.09&quot; gradientunits&#x3D;&quot;userSpaceOnUse&quot;&gt;
+                &lt;stop stop-color&#x3D;&quot;#0B0826&quot; /&gt;
+                &lt;stop offset&#x3D;&quot;1&quot; stop-color&#x3D;&quot;#19319C&quot; /&gt;
+              &lt;/lineargradient&gt;
+              &lt;lineargradient id&#x3D;&quot;paint1_linear&quot; x1&#x3D;&quot;73.7899&quot; y1&#x3D;&quot;78.4999&quot; x2&#x3D;&quot;1844.99&quot; y2&#x3D;&quot;1107.09&quot; gradientunits&#x3D;&quot;userSpaceOnUse&quot;&gt;
+                &lt;stop offset&#x3D;&quot;0.347041&quot; stop-color&#x3D;&quot;#19319C&quot; /&gt;
+                &lt;stop offset&#x3D;&quot;0.946568&quot; stop-color&#x3D;&quot;#040451&quot; /&gt;
+              &lt;/lineargradient&gt;
+              &lt;radialgradient id&#x3D;&quot;paint2_radial&quot; cx&#x3D;&quot;0&quot; cy&#x3D;&quot;0&quot; r&#x3D;&quot;1&quot; gradientunits&#x3D;&quot;userSpaceOnUse&quot; gradienttransform&#x3D;&quot;translate(732.16 1020) rotate(-88.4911) scale(933.824 969.063)&quot;&gt;
+                &lt;stop offset&#x3D;&quot;0.107509&quot; stop-color&#x3D;&quot;#339EFF&quot; /&gt;
+                &lt;stop offset&#x3D;&quot;1&quot; stop-color&#x3D;&quot;#339FFE&quot; stop-opacity&#x3D;&quot;0&quot; /&gt;
+              &lt;/radialgradient&gt;
+              &lt;radialgradient id&#x3D;&quot;paint3_radial&quot; cx&#x3D;&quot;0&quot; cy&#x3D;&quot;0&quot; r&#x3D;&quot;1&quot; gradientunits&#x3D;&quot;userSpaceOnUse&quot; gradienttransform&#x3D;&quot;translate(556.02 1137) rotate(-89.4126) scale(881.046 914.298)&quot;&gt;
+                &lt;stop offset&#x3D;&quot;0.15437&quot; stop-color&#x3D;&quot;#64B5FF&quot; /&gt;
+                &lt;stop offset&#x3D;&quot;0.648069&quot; stop-color&#x3D;&quot;#339FFE&quot; stop-opacity&#x3D;&quot;0&quot; /&gt;
+              &lt;/radialgradient&gt;
+              &lt;radialgradient id&#x3D;&quot;paint4_radial&quot; cx&#x3D;&quot;0&quot; cy&#x3D;&quot;0&quot; r&#x3D;&quot;1&quot; gradientunits&#x3D;&quot;userSpaceOnUse&quot; gradienttransform&#x3D;&quot;translate(1927 1007.5) rotate(-136.935) scale(920.43 951.471)&quot;&gt;
+                &lt;stop stop-color&#x3D;&quot;#BF03B2&quot; /&gt;
+                &lt;stop offset&#x3D;&quot;1&quot; stop-color&#x3D;&quot;#BA00AD&quot; stop-opacity&#x3D;&quot;0&quot; /&gt;
+              &lt;/radialgradient&gt;
+              &lt;radialgradient id&#x3D;&quot;paint5_radial&quot; cx&#x3D;&quot;0&quot; cy&#x3D;&quot;0&quot; r&#x3D;&quot;1&quot; gradientunits&#x3D;&quot;userSpaceOnUse&quot; gradienttransform&#x3D;&quot;translate(1872.8 749.002) rotate(-147.497) scale(699.747 722.411)&quot;&gt;
+                &lt;stop stop-color&#x3D;&quot;#BF03B2&quot; /&gt;
+                &lt;stop offset&#x3D;&quot;1&quot; stop-color&#x3D;&quot;#BA00AD&quot; stop-opacity&#x3D;&quot;0&quot; /&gt;
+              &lt;/radialgradient&gt;
+              &lt;radialgradient id&#x3D;&quot;paint6_radial&quot; cx&#x3D;&quot;0&quot; cy&#x3D;&quot;0&quot; r&#x3D;&quot;1&quot; gradientunits&#x3D;&quot;userSpaceOnUse&quot; gradienttransform&#x3D;&quot;translate(-4.29607e-06 132.502) rotate(10.8469) scale(770.515 794.003)&quot;&gt;
+                &lt;stop offset&#x3D;&quot;0.419761&quot; stop-color&#x3D;&quot;#6F2FD3&quot; /&gt;
+                &lt;stop offset&#x3D;&quot;1&quot; stop-color&#x3D;&quot;#6F2FD3&quot; stop-opacity&#x3D;&quot;0&quot; /&gt;
+              &lt;/radialgradient&gt;
+              &lt;radialgradient id&#x3D;&quot;paint7_radial&quot; cx&#x3D;&quot;0&quot; cy&#x3D;&quot;0&quot; r&#x3D;&quot;1&quot; gradientunits&#x3D;&quot;userSpaceOnUse&quot; gradienttransform&#x3D;&quot;translate(-4.29607e-06 132.502) rotate(10.8469) scale(770.515 794.003)&quot;&gt;
+                &lt;stop offset&#x3D;&quot;0.419761&quot; stop-color&#x3D;&quot;#6F2FD3&quot; /&gt;
+                &lt;stop offset&#x3D;&quot;1&quot; stop-color&#x3D;&quot;#6F2FD3&quot; stop-opacity&#x3D;&quot;0&quot; /&gt;
+              &lt;/radialgradient&gt;
+            &lt;/defs&gt;
+          &lt;/svg&gt;
+        &lt;/div&gt;&lt;/div&gt;
+        
+        &lt;/div&gt;&lt;!--end widget-span --&gt;
+        &lt;/div&gt;&lt;!--end row--&gt;
+        &lt;/div&gt;&lt;!--end row-wrapper --&gt;
+        
+            &lt;/div&gt;&lt;!--end footer --&gt;
+        &lt;/div&gt;&lt;!--end footer wrapper --&gt;
+        
+            
+        &lt;script&gt;
+        (function () {
+            window.addEventListener(&#x27;load&#x27;, function () {
+                setTimeout(function () {
+                    var xhr &#x3D; new XMLHttpRequest();
+                    xhr.open(&#x27;POST&#x27;, &#x27;/_hcms/perf&#x27;, true /*async*/);
+                    xhr.setRequestHeader(&quot;Content-type&quot;, &quot;application/json&quot;);
+                    xhr.onreadystatechange &#x3D; function () {
+                        // do nothing.
+                    };
+                    var connection &#x3D; navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+                    function populateNetworkInfo(name, connection, info) {
+                        if (name in connection) {
+                            info[name] &#x3D; connection[name];
+                        }
+                    }
+                    var networkInfo &#x3D; {};
+                    if (connection) {
+                        [&#x27;type&#x27;, &#x27;effectiveType&#x27;, &#x27;downlink&#x27;, &#x27;rtt&#x27;].forEach(function(name) {
+                            populateNetworkInfo(name, connection, networkInfo);
+                        });
+                    }
+                    var perfData &#x3D; {
+                        url: location.href,
+                        portal: 2829524,
+                        content: -1,
+                        group: -1,
+                        connection: networkInfo,
+                        timing: performance.timing
+                    };
+                    xhr.send(JSON.stringify(perfData));
+                }, 3000);  // Execute this 3 seconds after onload.
+            });
+        })();
+        &lt;/script&gt;
+        
+        &lt;script src&#x3D;&quot;https://www.pragma.com.co/hs-fs/hub/2829524/hub_generated/template_assets/41739390868/1616500824404/SITIO_WEB_2021/Coded_files/Pragma_theme_script.min.js&quot;&gt;&lt;/script&gt;
+        &lt;script&gt;
+        if (typeof hsVars !&#x3D;&#x3D; &#x27;undefined&#x27;) { hsVars[&#x27;language&#x27;] &#x3D; &#x27;es-co&#x27;; }
+        &lt;/script&gt;
+        
+        &lt;script src&#x3D;&quot;/hs/hsstatic/cos-i18n/static-1.27/bundles/project.js&quot;&gt;&lt;/script&gt;
+        &lt;script src&#x3D;&quot;https://cdn2.hubspot.net/hub/-1/hub_generated/module_assets/-2712622/1618183019520/module_-2712622_Site_Search_Input.min.js&quot;&gt;&lt;/script&gt;
+        &lt;script src&#x3D;&quot;https://f.hubspotusercontent00.net/hubfs/7528309/raw_assets/public/mV0_hubspot/js/template.js&quot;&gt;&lt;/script&gt;
+        &lt;script src&#x3D;&quot;https://f.hubspotusercontent00.net/hubfs/7528304/raw_assets/public/mV0_hubspot/js/url-search-params.js&quot;&gt;&lt;/script&gt;
+        &lt;script src&#x3D;&quot;https://cdn2.hubspot.net/hub/-1/hub_generated/module_assets/-2712624/1618183020564/module_-2712624_Site_Search_Results.min.js&quot;&gt;&lt;/script&gt;
+        
+        &lt;!-- Start of HubSpot Analytics Code --&gt;
+        &lt;script type&#x3D;&quot;text/javascript&quot;&gt;
+        var _hsq &#x3D; _hsq || [];
+        _hsq.push([&quot;setContentType&quot;, &quot;standard-page&quot;]);
+        _hsq.push([&quot;setCanonicalUrl&quot;, &quot;https:\/\/www.pragma.com.co\/hs-search-results&quot;]);
+        _hsq.push([&quot;setPageId&quot;, &quot;&quot;]);
+        _hsq.push([&quot;setContentMetadata&quot;, {
+            &quot;contentPageId&quot;: null,
+            &quot;legacyPageId&quot;: null,
+            &quot;contentFolderId&quot;: null,
+            &quot;contentGroupId&quot;: null,
+            &quot;abTestId&quot;: null,
+            &quot;languageVariantId&quot;: null,
+            &quot;languageCode&quot;: &quot;es-co&quot;,
+            
+        }]);
+        &lt;/script&gt;
+        
+        &lt;script type&#x3D;&quot;text/javascript&quot; id&#x3D;&quot;hs-script-loader&quot; async defer src&#x3D;&quot;/hs/scriptloader/2829524.js&quot;&gt;&lt;/script&gt;
+        &lt;!-- End of HubSpot Analytics Code --&gt;
+        
+        
+        &lt;script type&#x3D;&quot;text/javascript&quot;&gt;
+        var hsVars &#x3D; {
+            ticks: 1618183033243,
+            page_id: 0,
+        
+            content_group_id: 0,
+            portal_id: 2829524,
+            app_hs_base_url: &quot;https://app.hubspot.com&quot;,
+            cp_hs_base_url: &quot;https://cp.hubspot.com&quot;,
+            language: &quot;en&quot;,
+            analytics_page_type: &quot;standard-page&quot;,
+            category_id: 1,
+            folder_id: 0,
+            is_hubspot_user: false
+        }
+        &lt;/script&gt;
+        
+        
+        &lt;script defer src&#x3D;&quot;/hs/hsstatic/HubspotToolsMenu/static-1.99/js/index.js&quot;&gt;&lt;/script&gt;
+        
+        &lt;!-- Google Tag Manager (noscript) --&gt;
+        &lt;noscript&gt;&lt;iframe src&#x3D;&quot;https://www.googletagmanager.com/ns.html?id&#x3D;GTM-NP67TQ&quot; height&#x3D;&quot;0&quot; width&#x3D;&quot;0&quot; style&#x3D;&quot;display:none;visibility:hidden&quot;&gt;&lt;/iframe&gt;&lt;/noscript&gt;
+        &lt;!-- End Google Tag Manager (noscript) --&gt;
+        
+        &lt;!-- Schema Markup --&gt;
+        &lt;script type&#x3D;&quot;application/ld+json&quot;&gt;
+        {
+          &quot;@context&quot;: &quot;http://schema.org&quot;,
+          &quot;@type&quot;: &quot;Corporation&quot;,
+          &quot;name&quot;: &quot;PRAGMA S.A.&quot;,
+          &quot;alternateName&quot;: &quot;PRAGMA&quot;,
+          &quot;url&quot;: &quot;https://www.pragma.com.co/&quot;,
+          &quot;logo&quot;: &quot;https://www.pragma.com.co/hs-fs/hubfs/portal_pragma_2018/images/home/logos/logo_pragma_a_color.png&quot;,
+          &quot;contactPoint&quot;: {
+            &quot;@type&quot;: &quot;ContactPoint&quot;,
+            &quot;telephone&quot;: &quot;+574605 2523&quot;,
+            &quot;contactType&quot;: &quot;customer service&quot;,
+            &quot;areaServed&quot;: &quot;CO&quot;,
+            &quot;availableLanguage&quot;: &quot;Spanish&quot;
+          },
+          &quot;sameAs&quot;: [
+            &quot;https://www.facebook.com/SomosPragma/&quot;,
+            &quot;https://twitter.com/SomosPragma&quot;,
+            &quot;https://www.instagram.com/somospragma/&quot;,
+            &quot;https://www.youtube.com/user/PragmaSA/&quot;,
+            &quot;https://www.linkedin.com/company/pragma-s-a-/&quot;
+          ]
+          }
+        }
+        {
+          &quot;@context&quot;: &quot;https://schema.org/&quot;,
+          &quot;@type&quot;: &quot;WebSite&quot;,
+          &quot;name&quot;: &quot;Pragma&quot;,
+          &quot;url&quot;: &quot;https://www.pragma.com.co/&quot;,
+          &quot;potentialAction&quot;: {
+            &quot;@type&quot;: &quot;SearchAction&quot;,
+            &quot;target&quot;: &quot;https://www.pragma.com.co/hs-search-results?term&#x3D;{search_term_string}&quot;,
+            &quot;query-input&quot;: &quot;required name&#x3D;search_term_string&quot;
+          }
+        
+        &lt;/script&gt;
+        
+        
+        &lt;!-- Linkedin Insight Tag --&gt;
+        &lt;script type&#x3D;&quot;text/javascript&quot;&gt;
+        _linkedin_partner_id &#x3D; &quot;1381858&quot;;
+        window._linkedin_data_partner_ids &#x3D; window._linkedin_data_partner_ids || [];
+        window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+        &lt;/script&gt;&lt;script type&#x3D;&quot;text/javascript&quot;&gt;
+        (function(){var s &#x3D; document.getElementsByTagName(&quot;script&quot;)[0];
+        var b &#x3D; document.createElement(&quot;script&quot;);
+        b.type &#x3D; &quot;text/javascript&quot;;b.async &#x3D; true;
+        b.src &#x3D; &quot;https://snap.licdn.com/li.lms-analytics/insight.min.js&quot;;
+        s.parentNode.insertBefore(b, s);})();
+        &lt;/script&gt;
+        &lt;noscript&gt;
+        &lt;img height&#x3D;&quot;1&quot; width&#x3D;&quot;1&quot; style&#x3D;&quot;display:none;&quot; alt&#x3D;&quot;&quot; src&#x3D;&quot;https://px.ads.linkedin.com/collect/?pid&#x3D;1381858&amp;amp;fmt&#x3D;gif&quot;&gt;
+        &lt;/noscript&gt;
+        &lt;!-- End Linkedin Insight Tag --&gt;
+        &lt;!-- Spreaker Script --&gt;
+        &lt;script async src&#x3D;&quot;https://widget.spreaker.com/widgets.js&quot;&gt;&lt;/script&gt;
+        &lt;!-- End Spreaker Script --&gt;
+        
+        
+            
+            &lt;!-- Generated by the HubSpot Template Builder - template version 1.03 --&gt;
+        
+        &lt;/body&gt;&lt;/html&gt;</code></pre>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-outline-secondary btn-sm copyButton" type="button" data-clipboard-action="copy" data-clipboard-target="#copyText-eeb18e0c-99a2-419a-8075-492f889d7cbc">Copy to Clipboard</button>
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                <h5 class="card-title text-uppercase text-white text-center bg-info">Test Information</h5>
+                                    <div class="table-responsive text-nowrap">
+                                        <table id="myTable-eeb18e0c-99a2-419a-8075-492f889d7cbc" class="table table-hover">
+                                        <thead><tr class="text-center"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th></tr></thead>
+                                            <tbody>
+                                                <tr >
+                                                    <td >Status code is 200</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Response time is less than 2000ms</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="bg-light">
+                                                    <td><strong>Total</strong></td>
+                                                    <td class="text-center">2</td>
+                                                    <td class="text-center">0</td>
+                                                    <td class="text-center">0</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="row d-none">
+                                    <div class="col-sm-12 mb-3">
+                                        <div class="card-deck">
+                                        <div class="card border-danger" style="width: 50rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-uppercase text-white text-center bg-danger">Test Failure</h5>
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                    <thead><tr class="text-nowrap"><th>Test Name</th><th>Assertion Error</th></tr></thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</body>
+</html>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<!-- Data Table Configuration -->
+
+<script>
+$(document).ready( function () {
+    $('#myTable-eeb18e0c-99a2-419a-8075-492f889d7cbc').DataTable({
+        "retrieve": true,
+        "paging": false,
+        "info": false,
+        "fixedColumns":   {
+            "heightMatch": 'none'
+        }
+    });
+});
+</script>
+
+<!-- Tooltip Configuration -->
+
+<script>
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip({
+        trigger : 'hover'
+    })
+})
+</script>
+
+<!-- Show/Hide The Folders -->
+
+<script>
+$('#openAll').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+switch (clickCount){
+    case 1:
+            $('#folder-e64d300b-b494-4e56-84e2-2b0362b1abcb-iteration-0').removeClass('collapsed')
+            $('#folder-collapse-e64d300b-b494-4e56-84e2-2b0362b1abcb-iteration-0').addClass('show')
+        $('#openAll').html("Collapse Folders");
+        break;
+    case 2:
+            $('#folder-e64d300b-b494-4e56-84e2-2b0362b1abcb-iteration-0').addClass('collapsed')
+            $('#folder-collapse-e64d300b-b494-4e56-84e2-2b0362b1abcb-iteration-0').removeClass('show')
+        $('#openAll').html("Expand Folders");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Show/Hide The Requests -->
+
+<script>
+$('#openAllRequests').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+switch (clickCount){
+    case 1:
+            $('#requests-eac59a5f-3627-4117-b27a-b7c1a018ac13').removeClass('collapsed')
+            $('#collapse-eac59a5f-3627-4117-b27a-b7c1a018ac13').removeClass('collapsed')
+            $('#requests-eac59a5f-3627-4117-b27a-b7c1a018ac13').addClass('show')
+            $('#collapse-eac59a5f-3627-4117-b27a-b7c1a018ac13').addClass('show')
+        $('#openAllRequests').html("Collapse Requests");
+        break;
+    case 2:
+            $('#requests-eac59a5f-3627-4117-b27a-b7c1a018ac13').addClass('collapsed')
+            $('#collapse-eac59a5f-3627-4117-b27a-b7c1a018ac13').addClass('collapsed')
+            $('#requests-eac59a5f-3627-4117-b27a-b7c1a018ac13').removeClass('show')
+            $('#collapse-eac59a5f-3627-4117-b27a-b7c1a018ac13').removeClass('show')
+        $('#openAllRequests').html("Expand Requests");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Show/Hide The Skipped Tests -->
+
+<script>
+$('#openAllSkipped').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+switch (clickCount){
+    case 1:
+            $('#skipped-eac59a5f-3627-4117-b27a-b7c1a018ac13').removeClass('collapsed')
+            $('#skipped-collapse-eac59a5f-3627-4117-b27a-b7c1a018ac13').removeClass('collapsed')
+            $('#skipped-eac59a5f-3627-4117-b27a-b7c1a018ac13').addClass('show')
+            $('#skipped-collapse-eac59a5f-3627-4117-b27a-b7c1a018ac13').addClass('show')
+        $('#openAllSkipped').html("Collapse All Skipped Tests");
+        break;
+    case 2:
+            $('#skipped-eac59a5f-3627-4117-b27a-b7c1a018ac13').addClass('collapsed')
+            $('#skipped-collapse-eac59a5f-3627-4117-b27a-b7c1a018ac13').addClass('collapsed')
+            $('#skipped-eac59a5f-3627-4117-b27a-b7c1a018ac13').removeClass('show')
+            $('#skipped-collapse-eac59a5f-3627-4117-b27a-b7c1a018ac13').removeClass('show')
+        $('#openAllSkipped').html("Expand All Skipped Tests");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Show/Hide The Failures -->
+
+<script>
+$('#openAllFailed').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+switch (clickCount){
+    case 1:
+            $('#fails-eac59a5f-3627-4117-b27a-b7c1a018ac13').removeClass('collapsed')
+            $('#fails-collapse-eac59a5f-3627-4117-b27a-b7c1a018ac13').removeClass('collapsed')
+            $('#fails-eac59a5f-3627-4117-b27a-b7c1a018ac13').addClass('show')
+            $('#fails-collapse-eac59a5f-3627-4117-b27a-b7c1a018ac13').addClass('show')
+        $('#openAllFailed').html("Collapse All Failed Tests");
+        break;
+    case 2:
+            $('#fails-eac59a5f-3627-4117-b27a-b7c1a018ac13').addClass('collapsed')
+            $('#fails-collapse-eac59a5f-3627-4117-b27a-b7c1a018ac13').addClass('collapsed')
+            $('#fails-eac59a5f-3627-4117-b27a-b7c1a018ac13').removeClass('show')
+            $('#fails-collapse-eac59a5f-3627-4117-b27a-b7c1a018ac13').removeClass('show')
+        $('#openAllFailed').html("Expand All Failed Tests");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Pretty Print the Response Body-->
+
+<script>
+function isJSON(data)
+{
+    var ret = true;
+    try {
+            JSON.parse(data);
+    }catch(e) {
+            ret = false;
+    }
+    return ret;
+}
+
+function isXML(data)
+{
+    return (data.length > 0 && data[0] === '<');
+}
+
+// see https://gist.github.com/sente/1083506/d2834134cd070dbcc08bf42ee27dabb746a1c54d#gistcomment-2254622
+function formatXML(data) {
+    const PADDING = ' '.repeat(2); // set desired indent size here
+    const reg = /(>)(<)(\/*)/g;
+    let pad = 0;
+    xml = data.replace(reg, '$1\r\n$2$3');
+
+    return xml.split('\r\n').map((node, index) => {
+        let indent = 0;
+        if (node.match(/.+<\/\w[^>]*>$/)) {
+            indent = 0;
+        } else if (node.match(/^<\/\w/) && pad > 0) {
+            pad -= 1;
+        } else if (node.match(/^<\w[^>]*[^\/]>.*$/)) {
+            indent = 1;
+        } else {
+            indent = 0;
+        }
+
+        pad += indent;
+        return PADDING.repeat(pad - indent) + node;
+    }).join('\r\n');
+}
+
+$(".prettyPrint").each(function () {
+        var data = $(this).text();
+        // Verify whether data is JSON
+        if(isJSON(data))
+        {
+                obj = JSON.parse(data);
+                data = JSON.stringify(obj, null, 2);
+        }
+        else if(isXML(data)) {
+            data = formatXML(data);            
+        }
+        $(this).text(data);
+});
+</script>
+
+
+<!-- Copy Response Body To Clipboard -->
+
+<script>
+    var clipboard = new ClipboardJS('.copyButton');
+
+    clipboard.on('success', function(e) {
+        e.clearSelection();
+        $(".copyButton").addClass("bg-success text-white")
+        e.trigger.textContent = '✔ Copied!';
+        window.setTimeout(function() {
+            $(".copyButton").removeClass("bg-success text-white")
+            e.trigger.textContent = 'Copy to Clipboard';
+        }, 2000);
+    });
+    clipboard.on('error', function(e) {
+        e.clearSelection();
+        $(".copyButton").addClass("bg-danger text-white")
+        e.trigger.textContent = '✗ Not Copied';
+        window.setTimeout(function() {
+            $(".copyButton").removeClass("bg-danger text-white")
+            e.trigger.textContent = 'Copy to Clipboard';
+        }, 2000);
+    });
+
+</script>
+
+<!-- Render the Description Markdown and link in the test failures -->
+
+<script>
+    const remarkable = new Remarkable();
+
+    const descriptions = document.querySelectorAll(".renderMarkdown");
+    descriptions.forEach(description => {
+        description.innerHTML = renderHtmlFromMarkdown(description.textContent);
+    });
+    function renderHtmlFromMarkdown(markdown) {
+        return remarkable.render(trim(markdown));
+    }
+    function trim(string) {
+        return string ? string.replace(/^ +| +$/gm, "") : string;
+    }
+</script>
+
+<!-- Show/Hide The Toggles When Scrolling The Page -->
+
+<script>
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("topOfRequestsScreen").style.display = "block";
+    document.getElementById("topOfFailuresScreen").style.display = "block";
+    document.getElementById("topOfSkippedScreen").style.display = "block";
+    document.getElementById("openAll").style.display = "none";
+    document.getElementById("openAllRequests").style.display = "none";
+    
+    
+  } else {
+    document.getElementById("topOfRequestsScreen").style.display = "none";
+    document.getElementById("topOfFailuresScreen").style.display = "none";
+    document.getElementById("topOfSkippedScreen").style.display = "none";
+    document.getElementById("openAll").style.display = "block";
+    document.getElementById("openAllRequests").style.display = "block";
+    
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+
+<!-- Creates The Iteration Tabs -->
+
+<script type="text/javascript">
+    "use strict";
+
+window.onload = function () {
+
+  // set display for all blocks of response
+  var allItems = document.querySelectorAll('[class*=iteration-]');
+  allItems.forEach(function(elem){
+    elem.style.display = 'block';
+  });
+
+   
+  let totalIterations = 1;
+   
+
+  let menu = document.querySelector('#execution-menu .nav');
+
+  for(var i = 0; i < totalIterations; i++)
+  {
+    let li = document.createElement('li');
+    li.appendChild(document.createTextNode((i + 1)));
+    li.setAttribute('id', 'iteration-' + i);
+    li.classList.add("custom-tab");
+    li.classList.add("itPassed");
+
+    li.addEventListener('click', function() {
+      //set display to none for all except row
+      let allItems = document.querySelectorAll('[class*=iteration-]:not(.row)');
+      allItems.forEach(function(elem) {
+        elem.style.display = 'none';
+      })
+
+      let allMenus = document.querySelectorAll('[id*=iteration-]');
+      allMenus.forEach(function(elem){
+        elem.style.borderBottom = 'none';
+      })
+    
+      this.style.borderBottom = 'solid 3px #032a33';
+
+      let items = document.querySelectorAll("." + this.id + ':not(.row)');
+      items.forEach(function(elem) {
+        elem.style.display = elem.style.display == 'block' ? 'none' : 'block';
+      })
+    });
+    menu.appendChild(li);
+  }
+
+  //shows first tab data
+  document.getElementById('iteration-0').click();
+  document.getElementById('iterationSelected').innerHTML = `Iteration ${document.getElementById('iteration-0').innerHTML} selected`
+
+}
+</script>
+
+<!-- Create the Selected Iteration Label -->
+
+<script>
+$(document).ready(function(){
+    $(function() {
+        $("#iterationList li").click(function() {
+            document.getElementById('iterationSelected').innerHTML = "Iteration " + this.innerHTML + " selected"
+        });
+    });
+});
+</script>
+
+<!-- Filter Action for the Iterations -->
+
+<script>
+$(document).ready(function(){
+  $("#filterInput").on("input paste", function() {
+    var value = $(this).val();
+    $("#iterationList li").filter(function() {
+	  $("#showOnlyFailures").data("clickCount") ? $("#showOnlyFailures").click():null;
+      $(this).toggle($(this).text().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+<!-- Showing the Failed Interations -->
+
+<script>
+$(document).ready(function(){  
+  if($("#iterationList li.itFailed").length){
+	$("#showOnlyFailures").data("clickCount", 0);
+    $("#showOnlyFailures").on("click", function () {
+        let clickCount = $(this).data("clickCount")
+		$("#filterInput").val()!="" && clickCount==0 ? 
+		$("#filterInput").val('').trigger('input'): null;
+								
+        let selectedIteration = $('#iterationList li').filter(function () { 
+            return $(this).css('border-bottom').indexOf("solid") > -1 && $(this).hasClass('itFailed');
+        });
+        selectedIteration.length || clickCount ? null : $("#iterationList li.itFailed")[0].click()
+        $("#iterationList li.itPassed").each(function () {
+          $(this).toggle();
+         });
+        $("div.bg-success [id*=requests]").parents('[class^="row iteration-"]').each(function () {
+          $(this).toggle();
+         });
+        clickCount = clickCount ? 0 : ++clickCount;
+        clickCount ? $("#showOnlyFailures").html("Show All Iterations") : $("#showOnlyFailures").html("Show Failed Iterations");
+        $(this).data("clickCount", clickCount)     
+    });
+  }
+});
+</script>
+
+<!-- Set The Theme Of The Report -->
+
+<script>
+        function setTheme(themeName) {
+            localStorage.setItem('theme', themeName);
+            document.body.className = themeName;
+        }
+
+        function toggleTheme() {
+            if (localStorage.getItem('theme') === 'theme-light') {
+                setTheme('theme-dark');
+            } else {
+                setTheme('theme-light');
+            }
+        }
+
+        (function () {
+            if (localStorage.getItem('theme') === 'theme-light') {
+                setTheme('theme-light');
+                document.getElementById('slider').checked = false;
+            } else {
+                setTheme('theme-dark');
+                document.getElementById('slider').checked = true;
+            }
+        })();
+</script>
